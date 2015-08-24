@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var $ = require('jquery');
 
 var items = ['MEN','WOMEN','KIDS','BRANDS','SCHOOL UNIFORM','SALE'];
 
@@ -23,6 +22,10 @@ var Item = React.createClass({
   });
 
   var NavPanel = React.createClass({
+  componentDidMount: function () {
+     // alert('NavPanel--');
+  
+      },
     render: function () {
         return (
           <div id="">

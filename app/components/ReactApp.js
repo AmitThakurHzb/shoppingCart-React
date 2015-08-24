@@ -1,46 +1,34 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var $ = require('jquery');
+    Grid = require('./ProdGrid'),
 
-var Grid = require('./ProdGrid');
-
-
-var jsonData = require('../data/jsonData.js').jsonData;
-
-
+    CartStore = require('../stores/CartStore');
+    DefaultData =  require('../utils/setDataDefault.js');
+    
 
 var ReactApp = React.createClass({
-      getDefaultProps:function(){
-
-
+      getInitialState: function() {
+        return {}
       },
       componentWillMount: function () {
-      /* var data1 = $.getJSON( "ajax/", function( data ) {
-        var items = [];
-        $.each( data, function( key, val ) {
-          items.push( "<li id='" + key + "'>" + val + "</li>" );
-        });
-        console.log(data);
-      });*/
-    
-     // alert(data1);
-
-
+        DefaultData.setJsonDataFile();
+        //DefaultData.setJsonDataAjax();
+        this.setState({products: CartStore.getProdList()});
       },
       componentDidMount: function () {
-      
-
       },
 
       render: function () {
         return (
           <div id="">
-            <Grid items={jsonData} />
+            <Grid items={this.state.products} />
           </div>
         )
       }
   });
+
+
 
 
 /* Module.exports instead of normal dom mounting */

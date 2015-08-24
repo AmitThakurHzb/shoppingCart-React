@@ -1,4 +1,4 @@
-var jsonData =  [
+var prodData =  [
     {
         "prodImgSrc": "http://i1.adis.ws/s/tesco/br521064_is.jpg?$plp_grid_v2$",
         "prodImgAlt": "Buckle Detail Fit and Flare Dress",
@@ -186,5 +186,13 @@ var jsonData =  [
         ]
     }
 ]
+
+var jsonData ={
+    "cart":{
+        "price": 5,
+        "count": 10
+    },
+    "product": prodData
+}
 
 module.exports.jsonData = jsonData;

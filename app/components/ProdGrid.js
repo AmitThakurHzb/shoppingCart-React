@@ -2,30 +2,30 @@
 
 var React = require('react/addons');
     $ = require('jquery'),
+    FluxCartActions = require('../actions/FluxCartActions'),
+    CartStore = require('../stores/CartStore'),
+
     MiniBagPanel = React.createFactory(require('./MiniBag'));
 
+    var jsonData = require('../data/jsonData.js').jsonData;
+    
+
+    //module.exports = eventEmitter;  
 
 var Item = React.createClass({
-  update:function(prop){
-    var curPrice = $('.cart-count__price');
-        curCount = $('.cart-count__value'),
-        cartSubtotal = $('#minicartSubtotal'),
+  
+  // Show cart via Actions
+  addCart: function(prop){
 
-        newCount = (curCount)?(parseInt(curCount.text())+1):0,
-
-        newPrice = (curPrice.text() && prop.fromPrice )?(parseInt(prop.fromPrice)+ parseInt(curPrice.text())):curPrice.text();
-    
-    curPrice.text(newPrice);
-    curCount.text(newCount);
-    cartSubtotal.html(newPrice);
-    
+    FluxCartActions.addToCart(prop);
+    console.log("afterAdding: "+JSON.stringify(CartStore.getCartItems(), null, 4));
   },
   render: function(){
   return <li className="prodList col-md-4">
         <img src={this.props.itemName.prodImgSrc} />
         <p className="prodName">{this.props.itemName.prodName}</p>
         <p className="prodName">{"Price : "}{this.props.itemName.fromPrice}</p>
-        <button type="button" className="btn btn-default btn-sm" onClick={this.update.bind(this,this.props.itemName)} >
+        <button type="button" className="btn btn-default btn-sm" onClick={this.addCart.bind(this,this.props.itemName)} >
           {"Add "}<i className="glyphicon glyphicon-plus" aria-hidden="true" />
         </button>
   </li>
@@ -34,6 +34,7 @@ var Item = React.createClass({
 });
 
   var ProdGrid = React.createClass({
+  
     render: function(){
       var items = this.props.items.map(function(item){
         return <Item itemName={item} />;
